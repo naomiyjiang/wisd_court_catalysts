@@ -1,0 +1,536 @@
+---
+title: "WISD_shot charts for BOS vs. MIA and BOS vs. GSW"
+output: html_document
+date: "2023-07-04"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+# load pbp data
+library(hoopR)
+
+
+for (i in 01:07) {
+  game_id <- sprintf("00421003%02d", i)
+  assign(paste0("g", game_id), nba_data_pbp(game_id = game_id))
+  write.csv(get(paste0("g", game_id)), file = paste0("g", game_id, ".csv"), row.names = FALSE)
+}
+
+for (i in 11:15) {
+  game_id <- sprintf("00421003%02d", i)
+  assign(paste0("g", game_id), nba_data_pbp(game_id = game_id))
+  write.csv(get(paste0("g", game_id)), file = paste0("g", game_id, ".csv"), row.names = FALSE)
+}
+
+for (i in 01:06) {
+  game_id <- sprintf("00421004%02d", i)
+  assign(paste0("g", game_id), nba_data_pbp(game_id = game_id))
+  write.csv(get(paste0("g", game_id)), file = paste0("g", game_id, ".csv"), row.names = FALSE)
+}
+```
+
+
+```{r}
+# import court image
+library(grid)
+library(jpeg)
+ 
+# half court image
+courtImg.URL <- "/Users/liuruiying/Downloads/nba_court.png"
+court <- rasterGrob(readPNG(courtImg.URL),
+           width=unit(1,"npc"), height=unit(1,"npc"))
+ 
+# plot using NBA court background and colour by shot zone
+# ggplot(shotDataf, aes(x=LOC_X, y=LOC_Y)) + 
+#       annotation_custom(court, -250, 250, -50, 420) +
+#       geom_point(aes(colour = SHOT_ZONE_BASIC, shape = EVENT_TYPE)) +
+#       xlim(-250, 250) +
+#       ylim(-50, 420)
+```
+
+
+
+```{r}
+# graph 0301
+library(ggplot2)
+library(tidyverse)
+g0042100301_shot <- g0042100301 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100301_bos <- g0042100301_shot |>
+  filter(team == "BOS")
+
+g0042100301_mia <- g0042100301_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100301_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 17, 2022",
+       subtitle = "BOS 107 - 118 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100301_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 17, 2022",
+       subtitle = "BOS 107 - 118 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+```{r}
+# graph 0302
+library(ggplot2)
+library(tidyverse)
+g0042100302_shot <- g0042100302 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100302_bos <- g0042100302_shot |>
+  filter(team == "BOS")
+
+g0042100302_mia <- g0042100302_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100302_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 20, 2022",
+       subtitle = "BOS 127 - 102 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100302_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 20, 2022",
+       subtitle = "BOS 127 - 102 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+```{r}
+# graph 0303
+library(ggplot2)
+library(tidyverse)
+g0042100303_shot <- g0042100303 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100303_bos <- g0042100303_shot |>
+  filter(team == "BOS")
+
+g0042100303_mia <- g0042100303_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100303_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 22, 2022",
+       subtitle = "MIA 109 - 103 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100303_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 22, 2022",
+       subtitle = "MIA 109 - 103 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+
+```{r}
+# graph 0304
+library(ggplot2)
+library(tidyverse)
+g0042100304_shot <- g0042100304 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100304_bos <- g0042100304_shot |>
+  filter(team == "BOS")
+
+g0042100304_mia <- g0042100304_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100304_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 24, 2022",
+       subtitle = "MIA 82 - 102 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100304_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 24, 2022",
+       subtitle = "MIA 82 - 102 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
+```{r}
+# graph 0305
+library(ggplot2)
+library(tidyverse)
+g0042100305_shot <- g0042100305 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100305_bos <- g0042100305_shot |>
+  filter(team == "BOS")
+
+g0042100305_mia <- g0042100305_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100305_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 26, 2022",
+       subtitle = "BOS 93 - 80 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100305_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 26, 2022",
+       subtitle = "BOS 93 - 80 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
+```{r}
+# graph 0306
+library(ggplot2)
+library(tidyverse)
+g0042100306_shot <- g0042100306 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100306_bos <- g0042100306_shot |>
+  filter(team == "BOS")
+
+g0042100306_mia <- g0042100306_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100306_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 28, 2022",
+       subtitle = "MIA 111 - 103 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100306_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 28, 2022",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
+```{r}
+# graph 0307
+library(ggplot2)
+library(tidyverse)
+g0042100307_shot <- g0042100307 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100307_bos <- g0042100307_shot |>
+  filter(team == "BOS")
+
+g0042100307_mia <- g0042100307_shot |>
+  filter(team == "MIA")
+
+ggplot(data = g0042100307_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.MIA) on May 30, 2022",
+       subtitle = "BOS 100 - 96 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+
+
+ggplot(data = g0042100307_mia,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Shot Charts (vs.BOS) on May 30, 2022",
+       subtitle = "BOS 100 - 96 MIA",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
+```{r}
+# graph 0401
+library(ggplot2)
+library(tidyverse)
+g0042100401_shot <- g0042100401 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100401_bos <- g0042100401_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100401_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 3, 2022",
+       subtitle = "BOS 120 - 108 GSW",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+
+```{r}
+# graph 0402
+library(ggplot2)
+library(tidyverse)
+g0042100402_shot <- g0042100402 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100402_bos <- g0042100402_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100402_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 6, 2022",
+       subtitle = "BOS 88 - 107 GSW",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+
+```{r}
+# graph 0403
+library(ggplot2)
+library(tidyverse)
+g0042100403_shot <- g0042100403 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100403_bos <- g0042100403_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100403_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 9, 2022",
+       subtitle = "GWS 100 - 116 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+
+```{r}
+# graph 0404
+library(ggplot2)
+library(tidyverse)
+g0042100404_shot <- g0042100404 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100404_bos <- g0042100404_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100404_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 11, 2022",
+       subtitle = "GWS 107 - 97 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type") 
+```
+
+
+```{r}
+# graph 0405
+library(ggplot2)
+library(tidyverse)
+g0042100405_shot <- g0042100405 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100405_bos <- g0042100405_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100405_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 14, 2022",
+       subtitle = "BOS 94 - 104 GSW",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
+```{r}
+# graph 0406
+library(ggplot2)
+library(tidyverse)
+g0042100406_shot <- g0042100406 |>
+  filter(event_type == 1 | event_type == 2) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) |>
+  mutate(event_result = ifelse(event_type == 1, "MADE", "MISS"))
+
+g0042100406_bos <- g0042100406_shot |>
+  filter(team == "BOS")
+
+
+ggplot(data = g0042100406_bos,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_result, 
+                 shape = event_result)) +
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS Shot Charts (vs.GSW) on June 14, 2022",
+       subtitle = "GSW 103 - 90 BOS",
+       colour = "Shot Type",
+       shape = "Shot Type")
+```
+
+
