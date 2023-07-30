@@ -96,3 +96,30 @@ Please provide details of the data source, such as specific NBA games, data coll
 
 # Contributors
 List the main contributors to the project and their contact information.
+
+
+# Project Name
+Foul Analysis for NBA's Boston Celtics Team
+
+## Project Description
+This project provides multiple foul charts for the Boston Celtics Team. The charts cover 13 games involving the Boston team, specifically the 2022 NBA Eastern Conference Finals (BOS vs. MIA) and the 2022 NBA Finals (BOS vs. GSW).
+
+## Directory Structure
+The project directory is structured as follows:
+- `/Foul-Ipynb`: This directory contains the Jupyter notebook that demonstrates the foul analysis process.
+- `/Foul-Output.pdf`: This file contains the finished foul charts produced by the analysis code.
+
+## Installation/Running Steps
+To install and run this project, you'll need to use Google Colab. Simply upload the project files to your Colab workspace and open the Jupyter notebook (Foul-Ipynb) to begin the analysis.
+
+
+## Technologies/Frameworks/Libraries Used
+The foul charts were produced using Jupyter Notebook.
+
+
+## Features
+The analysis is based on `BOS_shot charts`, an Rmd file. It utilizes the HoopR package in RStudio, which contains play-by-play data of NBA games. Specifically, data from the 2022 NBA Eastern Conference Finals (BOS vs. MIA) and the 2022 NBA Finals (BOS vs. GSW) were selected for this analysis. The shot charts for the Boston Celtics were generated using the `LocX` and `LocY` variables, along with the ggplot2 package in R. In the generated charts, blue dots represent shots that were missed, and red dots represent successful shots. The dots are plotted on a half-court graph.
+
+## Data Source
+2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW)
+Time retrieved: July 2023
