@@ -98,8 +98,7 @@ Please provide details of the data source, such as specific NBA games, data coll
 List the main contributors to the project and their contact information.
 
 
-# Project Name
-Foul Analysis for NBA's Boston Celtics Team
+# Foul Analysis for NBA's Boston Celtics Team
 
 ## Project Description
 This project provides multiple foul charts for the Boston Celtics Team. The charts cover 13 games involving the Boston team, specifically the 2022 NBA Eastern Conference Finals (BOS vs. MIA) and the 2022 NBA Finals (BOS vs. GSW).
