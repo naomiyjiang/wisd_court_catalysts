@@ -1,0 +1,365 @@
+---
+title: "Turnover: Bad Pass"
+format: html
+---
+
+```{r}
+#| message: false
+# load package
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(grid)
+library(png)
+```
+
+## Analyzing BOS Turnover through Matches with MIA and GSW
+```{r}
+#| message: false
+# load data containing player's name
+player_analyze_results <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/DatafromNBA/player_analyze_result.csv")
+player_names <- player_analyze_results|>
+  select(player_id,player_name)
+
+# half court graph
+courtImg.URL <- "/Users/rainbowgu/Documents/SDS R/2023 Hackathon/nba_court.png"
+court <- rasterGrob(readPNG(courtImg.URL),
+           width=unit(1,"npc"), height=unit(1,"npc"))
+
+# load all pbp BOS turnover
+t0301 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100301.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0302 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100302.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0303 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100303.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0304 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100304.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0305 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100305.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0306 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100306.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0307 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100307.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+
+t0401 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100401.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0402 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100402.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0403 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100403.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0404 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100404.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0405 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100405.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+t0406 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100406.csv")|>
+  filter(grepl('Turnover', description), team_id == 1610612738)
+
+# seperate to different opponent matches
+pbp_BvM <- rbind(t0301,t0302,t0303, t0304, t0305, t0306, t0307)
+pbp_BvG <- rbind(t0401,t0402,t0403, t0404, t0405, t0406)
+
+rm(t0301,t0302,t0303, t0304, t0305, t0306, t0307, t0401,t0402,t0403, t0404, t0405, t0406)
+```
+
+#### BOS vs MIA, BOS Turnovers
+
+```{r}
+# join corresponding names into the play-by-play data
+pbp_BvM_names <- left_join(pbp_BvM, player_names, by = c("player1_id"="player_id"))
+pbp_BvM_names <- distinct(pbp_BvM_names)
+```
+
+```{r}
+#| warning: false
+# plot turnovers of BOS players in all seven BOS vs MIA matches
+graphBvM_tloc <- pbp_BvM_names |>
+  filter(event_type == 5) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) 
+
+ggplot(data = graphBvM_tloc,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = player_name) )+
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS vs MIA Total BOS Turnovers, 2022",
+       subtitle = "All 7 BOS vs MIA Matches Combined",
+       colour = "Players") 
+```
+Miami's defense is generally weaker therefore they are blocking turnovers in more dangerous zones near the rim.
+
+#### BOS vs GSW, BOS Turnovers
+
+```{r}
+# join corresponding names into the play-by-play data
+pbp_BvG_names <- left_join(pbp_BvG, player_names, by = c("player1_id"="player_id"))
+pbp_BvG_names <- distinct(pbp_BvG_names)
+```
+
+```{r}
+#| warning: false
+# plot turnovers of BOS players in all seven BOS vs GSW matches
+graphBvG_tloc <- pbp_BvG_names |>
+  filter(event_type == 5) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) 
+
+ggplot(data = graphBvG_tloc,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = player_name) )+
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "BOS vs GSW Total BOS Turnovers, 2022",
+       subtitle = "All 7 BOS vs GSW Matches Combined",
+       colour = "Players") 
+```
+Golden State Warriors' defense is generally stronger therefore their blocks are more spread out in the court; a stronger tendency to have turnovers resulting in the locX=100 location points to the possible stronger in defense in the left portion of the court near the rim by the GSW.
+
+
+## Turnovers Analysis
+
+#### Turnover at Each Score
+```{r}
+#| warning: false
+ggplot(pbp_BvM_names, aes(x = home_score)) +
+  geom_histogram() +
+  labs(title = "Amount of Turnovers at Each Score, BOS vs MIA 2022",
+       subtitle = "All 7 BOS vs MIA Matches Combined",
+       x = "Home Score",
+       y = "Amount of Turnovers") 
+```
+
+```{r}
+#| warning: false
+ggplot(pbp_BvG_names, aes(x = home_score)) +
+  geom_histogram() +
+  labs(title = "Amount of Turnovers at Each Score, BOS vs GSW 2022",
+       subtitle = "All 7 BOS vs GSW Matches Combined",
+       x = "Home Score",
+       y = "Amount of Turnovers") 
+```
+
+#### Turnover Types & Location
+
+```{r}
+# renaming different types of turnovers
+pbp_all<- rbind(pbp_BvM_names, pbp_BvG_names)
+pbp_all <- pbp_all|> 
+  filter("event_action_type" != 11, "event_action_type" != 13, "event_action_type" != 36)
+
+pbp_all$event_action_type <- as.character(pbp_all$event_action_type)
+
+pbp_all<- pbp_all|>
+  mutate(event_action_type = case_when(
+    event_action_type == "1"~ "Bad Pass (steal)",
+event_action_type == "2"~ "Lost Ball (steal)",
+event_action_type == "4"~ "Traveling",
+event_action_type == "6" ~ "Double Dribble",
+event_action_type == "11"~ "Shot Clock",
+event_action_type == "13"~ "Backcourt",
+event_action_type == "36"~ "Illegal Screen Turnover",
+event_action_type == "37"~ "Offensive Foul Turnover",
+event_action_type == "39"~ "Step Out of Bound",
+event_action_type == "40"~ "Out of Bounds Lost Ball",
+event_action_type == "45"~ "Out of Bounds Bad Pass",
+TRUE ~event_action_type))
+
+# select turnovers by cause
+pbp_all_causedT <- pbp_all |>
+  filter(!(event_action_type %in% c("Shot Clock", "Backcourt", "Illegal Screen Turnover")))
+
+# plot
+graphall_tloc <- pbp_all_causedT |>
+  filter(event_type == 5) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) 
+
+ggplot(data = graphall_tloc,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_action_type) )+
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "All BOS, 2022",
+       colour = "Reasons for Turnovers") 
+```
+
+#### Turnover Types and Clock Time
+
+```{r}
+# changing clock format
+pbp_all_causedT <- pbp_all_causedT %>%
+  mutate(clock_minutes = as.numeric(substring(clock, 1, 2)) * 60 + as.numeric(substring(clock, 4, 5)))
+```
+
+```{r}
+# Define the breaks to separate time into five sections
+time_breaks <- c(0, 150, 300, 450, 600, 750)
+
+# Create a new categorical variable to represent the time sections
+pbp_all_causedT$time_section <- cut(pbp_all_causedT$clock_minutes, breaks = time_breaks,
+                                    labels = c("0-150 minutes", "150-300 minutes", "300-450 minutes", "450-600 minutes", "600-750 minutes"),
+                                    right = FALSE)
+
+# Convert time_section to a factor to preserve the order of levels in the stacked bar plot
+pbp_all_causedT$time_section <- factor(pbp_all_causedT$time_section,
+                                       levels = c("0-150 minutes", "150-300 minutes", "300-450 minutes", "450-600 minutes", "600-750 minutes"))
+
+# Create the stacked bar plot with time_section as the stacks
+ggplot(pbp_all_causedT, aes(x = time_section, fill = event_action_type)) +
+  geom_bar(position = "stack") +
+  labs(title = "Turnovers Over Time of All Matches",
+       x = "Time Section",
+       y = "Turnover Number")
+```
+Steals are the most direct cause of turnovers.
+
+## BOS Defence
+
+Analysis on which kind of turnovers are more frequent initiated by BOS on other teams
+```{r}
+#| message: false
+# load all play-by-play data of turnovers of the other team
+t0301 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100301.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0302 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100302.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0303 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100303.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0304 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100304.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0305 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100305.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0306 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100306.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0307 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100307.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+
+t0401 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100401.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0402 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100402.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0403 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100403.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0404 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100404.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0405 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100405.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+t0406 <- read_csv("/Users/rainbowgu/Documents/SDS R/2023 Hackathon/pbp/g0042100406.csv")|>
+  filter(grepl('Turnover', description), !team_id == 1610612738)
+
+# seperate to different opponent matches
+pbp_M <- rbind(t0301,t0302,t0303, t0304, t0305, t0306, t0307)
+pbp_G <- rbind(t0401,t0402,t0403, t0404, t0405, t0406)
+
+rm(t0301,t0302,t0303, t0304, t0305, t0306, t0307, t0401,t0402,t0403, t0404, t0405, t0406)
+```
+
+#### BOS vs MIA, MIA Turnovers
+```{r}
+# join player names 
+pbp_M_names <- left_join(pbp_M, player_names, by = c("player1_id"="player_id"))
+pbp_M_names <- distinct(pbp_M_names)
+```
+
+```{r}
+pbp_M_names$event_action_type <- as.character(pbp_M_names$event_action_type)
+
+pbp_M_names<- pbp_M_names|>
+  mutate(event_action_type = case_when(
+    event_action_type == "1"~ "Bad Pass (steal)",
+event_action_type == "2"~ "Lost Ball (steal)",
+event_action_type == "4"~ "Traveling",
+event_action_type == "6" ~ "Double Dribble",
+event_action_type == "11"~ "Shot Clock",
+event_action_type == "15"~ "Offensive Goaltending",
+event_action_type == "21"~ "Palming Turnover",
+event_action_type == "13"~ "Backcourt",
+event_action_type == "36"~ "Illegal Screen Turnover",
+event_action_type == "37"~ "Offensive Foul Turnover",
+event_action_type == "39"~ "Step Out of Bound",
+event_action_type == "40"~ "Out of Bounds Lost Ball",
+event_action_type == "45"~ "Out of Bounds Bad Pass",
+TRUE ~event_action_type))
+
+pbp_M_causedT <- pbp_M_names |>
+  filter(!(event_action_type %in% c("Shot Clock", "Backcourt", "Illegal Screen Turnover")))
+```
+
+```{r}
+#| warning: false
+# plot 
+graphM_tloc <- pbp_M_causedT |>
+  filter(event_type == 5) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) 
+
+ggplot(data = graphM_tloc,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_action_type) )+
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "MIA Turnover to BOS, 2022",
+      subtitle = "All 7 BOS vs MIA Matches Combined",
+       colour = "Turnover Type") 
+```
+
+#### BOS vs GSW, GSW Turnovers
+```{r}
+# join player names 
+pbp_G_names <- left_join(pbp_G, player_names, by = c("player1_id"="player_id"))
+pbp_G_names <- distinct(pbp_G_names)
+```
+
+```{r}
+pbp_G_names$event_action_type <- as.character(pbp_G_names$event_action_type)
+
+pbp_G_names<- pbp_G_names|>
+  mutate(event_action_type = case_when(
+    event_action_type == "1"~ "Bad Pass (steal)",
+event_action_type == "2"~ "Lost Ball (steal)",
+event_action_type == "4"~ "Traveling",
+event_action_type == "6" ~ "Double Dribble",
+event_action_type == "11"~ "Shot Clock",
+event_action_type == "13"~ "Backcourt",
+event_action_type == "15"~ "Offensive Goaltending",
+event_action_type == "21"~ "Palming Turnover",
+event_action_type == "36"~ "Illegal Screen Turnover",
+event_action_type == "37"~ "Offensive Foul Turnover",
+event_action_type == "39"~ "Step Out of Bound",
+event_action_type == "40"~ "Out of Bounds Lost Ball",
+event_action_type == "45"~ "Out of Bounds Bad Pass",
+TRUE ~event_action_type))
+
+pbp_G_causedT <- pbp_G_names |>
+  filter(!(event_action_type %in% c("Shot Clock", "Backcourt", "Illegal Screen Turnover")))
+```
+
+```{r}
+#| warning: false
+# plot
+graphG_tloc <- pbp_G_causedT |>
+  filter(event_type == 5) |>
+  mutate(event_type_cate = as.character(event_type)) |>
+  mutate(team = gsub("^\\[|\\]$", "", gsub(".*\\[([^]]*)\\].*", "\\1", description))) |>
+  mutate(team = gsub("\\s\\d+-\\d+", "", team)) 
+
+ggplot(data = graphG_tloc,
+  aes(x=locX, y=locY)) +
+  annotation_custom(court, -250, 250, -50, 420) +
+  geom_point(aes(colour = event_action_type) )+
+  xlim(-250, 250) +
+  ylim(-50, 420) +
+  labs(title = "GSW Turnover to BOS, 2022",
+      subtitle = "All 7 BOS vs GSW Matches Combined",
+       colour = "Turnover Type") 
+```
+
