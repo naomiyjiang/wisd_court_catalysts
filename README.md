@@ -2,7 +2,7 @@
 
 # Shot chart for NBA's Boston Celtics Team
 
-##Project Description
+## Project Description
 This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW). 
 This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW).
 
