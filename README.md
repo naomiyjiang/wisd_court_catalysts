@@ -2,7 +2,9 @@
 
 # Shot chart for NBA's Boston Celtics Team
 
-## This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW).
+##Project Description
+This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW). 
+This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW).
 
 ## Directory Structure
 The project directory is structured as follows:
@@ -26,8 +28,7 @@ BOS_shot charts is a Rmd. file. It use the HoopR package in RStudio. The package
 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW)
 Time retrieved: July 2023
 
-# Project Name
-Turnovers of NBA's Boston Celtics Team
+# Turnovers of NBA's Boston Celtics Team
 
 ## Project Description
 This project provides shot charts for Boston Celtics Team. Charts for 12 games involving the Boston team were produced: 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW).
@@ -55,8 +56,7 @@ BOS Turnover.qmd is a quatro file that uses R programming language. The file use
 2022 NBA Eastern Conference Finals (BOS vs. MIA) and 2022 NBA Finals (BOS vs. GSW)
 Time retrieved: July 2023
 
-# Project Name
-Analysis of Shooting Efficiency and Players for NBA's Boston Celtics
+# Analysis of Shooting Efficiency and Players for NBA's Boston Celtics
 
 # Project Description
 This project focuses on the shooting efficiency of players in the Boston Celtics team. We have conducted detailed analysis and statistics on the shooting efficiency and shot attempts of players in 12 games played by the Boston Celtics.
