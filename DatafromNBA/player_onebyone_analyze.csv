@@ -1,0 +1,55 @@
+player_id,player_name,team_name,_1pt_made,_2pt_made,_3pt_made,_1pt_missed,_2pt_missed,_3pt_missed,games_played,_1pt_total,_2pt_total,_3pt_total,_1pt_shooting_percentage,_2pt_shooting_percentage,_3pt_shooting_percentage
+201143,Al Horford,Boston Celtics,15,20,20,6,18,22,11,21,38,42,71.43%,52.63%,47.62%
+203917,Nik Stauskas,Boston Celtics,2,0,3,0,1,5,6,2,1,8,100.00%,0.00%,37.50%
+203935,Marcus Smart,Boston Celtics,27,33,24,6,39,46,10,33,72,70,81.82%,45.83%,34.29%
+1627759,Jaylen Brown,Boston Celtics,52,67,30,17,64,53,12,69,131,83,75.36%,51.15%,36.14%
+1628369,Jayson Tatum,Boston Celtics,70,55,37,19,73,54,12,89,128,91,78.65%,42.97%,40.66%
+1628401,Derrick White,Boston Celtics,24,21,17,6,34,27,11,30,55,44,80.00%,38.18%,38.64%
+1628436,Luke Kornet,Boston Celtics,0,2,1,0,1,0,3,0,3,1,nan%,66.67%,100.00%
+1628464,Daniel Theis,Boston Celtics,1,7,1,1,2,1,6,2,9,2,50.00%,77.78%,50.00%
+1629057,Robert Williams III,Boston Celtics,20,35,0,2,10,0,11,22,45,0,90.91%,77.78%,nan%
+1629684,Grant Williams,Boston Celtics,23,15,10,5,14,17,12,28,29,27,82.14%,51.72%,37.04%
+1629752,Juwan Morgan,Boston Celtics,1,0,0,1,0,1,1,2,0,1,50.00%,nan%,0.00%
+1630174,Aaron Nesmith,Boston Celtics,3,3,0,1,2,10,7,4,5,10,75.00%,60.00%,0.00%
+1630202,Payton Pritchard,Boston Celtics,4,9,13,2,6,26,11,6,15,39,66.67%,60.00%,33.33%
+1630238,Malik Fitts,Boston Celtics,0,0,1,0,0,0,1,0,0,1,nan%,nan%,100.00%
+1630573,Sam Hauser,Boston Celtics,0,0,1,0,1,1,2,0,1,2,nan%,0.00%,50.00%
+200768,Kyle Lowry,Miami Heat,11,6,8,3,13,22,5,14,19,30,78.57%,31.58%,26.67%
+200782,P.J. Tucker,Miami Heat,7,7,8,5,12,12,7,12,19,20,58.33%,36.84%,40.00%
+202710,Jimmy Butler,Miami Heat,48,55,7,6,51,17,7,54,106,24,88.89%,51.89%,29.17%
+203473,Dewayne Dedmon,Miami Heat,2,5,1,0,3,1,3,2,8,2,100.00%,62.50%,50.00%
+203506,Victor Oladipo,Miami Heat,22,11,8,7,22,21,7,29,33,29,75.86%,33.33%,27.59%
+1628389,Bam Adebayo,Miami Heat,11,47,0,6,31,1,7,17,78,1,64.71%,60.26%,0.00%
+1628997,Caleb Martin,Miami Heat,1,11,7,1,11,8,6,2,22,15,50.00%,50.00%,46.67%
+1629130,Duncan Robinson,Miami Heat,0,6,7,0,3,17,5,0,9,24,nan%,66.67%,29.17%
+1629216,Gabe Vincent,Miami Heat,9,8,12,0,10,22,7,9,18,34,100.00%,44.44%,35.29%
+1629312,Haywood Highsmith,Miami Heat,0,0,0,0,1,1,2,0,1,1,nan%,0.00%,0.00%
+1629622,Max Strus,Miami Heat,4,6,14,0,12,34,7,4,18,48,100.00%,33.33%,29.17%
+1629639,Tyler Herro,Miami Heat,4,15,1,0,13,14,4,4,28,15,100.00%,53.57%,6.67%
+1630209,Omer Yurtseven,Miami Heat,0,3,0,0,3,0,3,0,6,0,nan%,50.00%,nan%
+202722,Davis Bertans,Dallas Mavericks,1,3,3,0,1,11,5,1,4,14,100.00%,75.00%,21.43%
+203493,Reggie Bullock,Dallas Mavericks,4,1,17,1,5,24,5,5,6,41,80.00%,16.67%,41.46%
+203504,Trey Burke,Dallas Mavericks,1,3,2,0,0,2,2,1,3,4,100.00%,100.00%,50.00%
+203915,Spencer Dinwiddie,Dallas Mavericks,23,9,14,3,9,17,5,26,18,31,88.46%,50.00%,45.16%
+203939,Dwight Powell,Dallas Mavericks,3,3,0,2,2,0,4,5,5,0,60.00%,60.00%,nan%
+1627827,Dorian Finney-Smith,Dallas Mavericks,3,12,11,5,5,14,5,8,17,25,37.50%,70.59%,44.00%
+1628373,Frank Ntilikina,Dallas Mavericks,0,1,3,0,1,8,5,0,2,11,nan%,50.00%,27.27%
+1628425,Sterling Brown,Dallas Mavericks,2,2,0,0,2,1,2,2,4,1,100.00%,50.00%,0.00%
+1628467,Maxi Kleber,Dallas Mavericks,1,5,5,0,2,14,5,1,7,19,100.00%,71.43%,26.32%
+1628973,Jalen Brunson,Dallas Mavericks,17,23,9,8,24,13,5,25,47,22,68.00%,48.94%,40.91%
+1629029,Luka Doncic,Dallas Mavericks,44,31,18,13,34,35,5,57,65,53,77.19%,47.69%,33.96%
+1630182,Josh Green,Dallas Mavericks,0,1,0,0,1,2,2,0,2,2,nan%,50.00%,0.00%
+2738,Andre Iguodala,Golden State Warriors,0,2,1,0,1,0,1,0,3,1,nan%,66.67%,100.00%
+201939,Stephen Curry,Golden State Warriors,41,51,43,8,54,58,10,49,105,101,83.67%,48.57%,42.57%
+202357,Nemanja Bjelica,Golden State Warriors,0,6,2,0,5,1,6,0,11,3,nan%,54.55%,66.67%
+202691,Klay Thompson,Golden State Warriors,16,34,33,1,34,56,10,17,68,89,94.12%,50.00%,37.08%
+203110,Draymond Green,Golden State Warriors,16,28,2,10,24,15,10,26,52,17,61.54%,53.85%,11.76%
+203490,Otto Porter Jr.,Golden State Warriors,4,10,8,1,2,7,8,5,12,15,80.00%,83.33%,53.33%
+203952,Andrew Wiggins,Golden State Warriors,22,59,15,10,46,41,10,32,105,56,68.75%,56.19%,26.79%
+1626172,Kevon Looney,Golden State Warriors,7,38,0,3,16,0,10,10,54,0,70.00%,70.37%,nan%
+1627780,Gary Payton II,Golden State Warriors,5,9,2,3,2,3,4,8,11,5,62.50%,81.82%,40.00%
+1627814,Damion Lee,Golden State Warriors,0,3,1,0,2,7,7,0,5,8,nan%,60.00%,12.50%
+1629308,Juan Toscano-Anderson,Golden State Warriors,0,0,0,0,0,1,1,0,0,1,nan%,nan%,0.00%
+1629673,Jordan Poole,Golden State Warriors,26,30,20,1,13,31,10,27,43,51,96.30%,69.77%,39.22%
+1630228,Jonathan Kuminga,Golden State Warriors,8,4,1,2,9,2,3,10,13,3,80.00%,30.77%,33.33%
+1630541,Moses Moody,Golden State Warriors,3,5,4,1,3,4,6,4,8,8,75.00%,62.50%,50.00%
