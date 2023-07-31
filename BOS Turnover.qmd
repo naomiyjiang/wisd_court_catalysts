@@ -1,6 +1,13 @@
 ---
 title: "Turnover: Bad Pass"
-format: html
+author: "Rainbow Gu"
+format: 
+  html：
+    self-contained: true
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 ```{r}
